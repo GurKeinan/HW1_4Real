@@ -16,6 +16,9 @@ public class Main {
         for (int i = 1; i <= numberOfGames; i++) {
             int seed = scanner.nextInt();
             rnd = new Random(seed);
+            Die die1 = new Die();
+            Die die2 = new Die(21, 3);
+            System.out.println(die1.roll());
             scanner.nextLine();
             String lowerBoundString = scanner.nextLine();
 
