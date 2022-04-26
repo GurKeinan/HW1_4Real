@@ -1,2 +1,3 @@
-public class Ladder {
+public class Ladder
+{
 }
