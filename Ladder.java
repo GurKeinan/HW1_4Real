@@ -1,13 +1,17 @@
 public class Ladder
 {
     int length;
-    int squareNumber;
 
-    public Ladder(int length, int squareNumber)
+    public Ladder(int length)
     {
         this.length = length;
-        this.squareNumber = squareNumber;
     }
 
+    public int getLength(){
+        return this.length;
+    }
 
+    public void setLength(int length){
+        this.length = length;
+    }
 }

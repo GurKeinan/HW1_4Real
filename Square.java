@@ -1,22 +1,34 @@
 public class Square
 {
-    int NumOfSquare;
     Snake snake;
     Ladder ladder;
 
-    public Square(int NumOfSquare, Snake snake , Ladder ladder)
+    public Square(Snake snake , Ladder ladder)
     {
-        this.NumOfSquare = NumOfSquare;
         this.snake= snake;
         this.ladder = ladder;
     }
 
-    public Square(int NumOfSquare)
+    public Square()
     {
-        this.NumOfSquare = NumOfSquare;
-        this.snake = new Snake(0 , NumOfSquare);
-        this.ladder = new Ladder(0 , NumOfSquare);
+        this.snake = new Snake(0 );
+        this.ladder = new Ladder(0);
+    }
 
+    public int getLadderLength(){
+        return this.ladder.getLength();
+    }
+
+    public int getSnakeLength(){
+        return this.snake.getLength();
+    }
+
+    public void setLadderLength(int length){
+        this.ladder.setLength(length);
+    }
+
+    public void setSnakeLength(int length){
+        this.snake.setLength(length);
     }
 
 

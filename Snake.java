@@ -2,12 +2,18 @@
 public class Snake
 {
     int length;
-    int squareNumber;
 
-    public Snake(int length, int squareNumber)
+    public Snake(int length)
     {
         this.length = length;
-        this.squareNumber = squareNumber;
+    }
+
+    public int getLength(){
+        return this.length;
+    }
+
+    public void setLength(int length){
+        this.length = length;
     }
 
 

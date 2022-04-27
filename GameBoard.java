@@ -7,4 +7,8 @@ public class GameBoard
         Board_Squares = board_Squares;
     }
 
+    public Square [] getBoard(){
+        return this.Board_Squares;
+    }
+
 }
