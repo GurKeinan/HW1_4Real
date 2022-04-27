@@ -2,9 +2,10 @@ public class GameBoard
 {
     Square[] Board_Squares;
 
-    public GameBoard(Square[] board_Squares)
+    public GameBoard(int n)
     {
-        Board_Squares = board_Squares;
+        Square[] array = new Square[n];
+
     }
 
     public Square [] getBoard(){

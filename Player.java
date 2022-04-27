@@ -9,7 +9,7 @@ public class Player
     {
         this.name = name;
         this.color = color;
-        this.currSquare =0;
+        this.currSquare =1;
     }
 
     public String getName(){
@@ -39,6 +39,8 @@ public class Player
     public void moveSquare(int roll)
     {
         this.currSquare += roll;
+        if(currSquare < 1) currSquare = 1;
+        if(currSquare > 100) currSquare = 200-currSquare;
     }
 
 

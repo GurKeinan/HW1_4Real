@@ -1,21 +1,42 @@
 public class SnakesAndLaddersGame
 {
+
     Die die;
-    GameBoard board;
+
     int playersNum;
     Player[] players;
     final int BOARD_SIZE = 100;
+    GameBoard board;
     final int MAX_INPUT_LENGTH = 4;
 
     public SnakesAndLaddersGame(int min, int max){
-        this.die = new Die(min, max);
+        Square s = new Square[BOARD_SIZE];
+        board = new GameBoard();
+        this.die = new Die(max, min);
     }
+
+    public void sortByName(Player [] p) {
+        Player tmp;
+        Player p2 [] = new Player[playersNum];
+        for(int i = 0; i < playersNum; i++) {
+            int max = i;
+            for(int j = i + 1; j < playersNum; j++) {
+                if(p[i].getName().compareToIgnoreCase(p[j].getName()) >= 0){
+                    max = j;
+                }
+                tmp = p[0];
+                p[0] = p[max];
+                p[max] = tmp;
+            }
+        }
+    }
+
 
     public SnakesAndLaddersGame(){
         this.die = new Die();
     }
 
-    public void initializeGame(){
+    public void initializeGame() {
         int squareNum;
         int length;
         this.players = new Player[5];
@@ -32,6 +53,7 @@ public class SnakesAndLaddersGame
                     break;
                 }
                 System.out.println("Cannot start the game, there are less then two players!");
+                continue;
             }
             if(input[1].equals("player")){
                 if(playersNum >= 5) {
@@ -58,7 +80,7 @@ public class SnakesAndLaddersGame
                     System.out.println("The color is already taken!");
                 }
                 else{
-                    players[playersNum].setName(input[2]);
+                    players[playersNum] = new Player(input[2], Colors.valueOf(input[3]), 1);
                     players[playersNum].setColor(Colors.valueOf(input[3]));
                     this.playersNum++;
                 }
@@ -108,6 +130,29 @@ public class SnakesAndLaddersGame
                 }
             }
 
+        }
+        sortByName(players);
+    }
+
+    public String start(){
+        Square curSquare;
+        int round = 1;
+        while(true){
+            System.out.println("------------------------- Round number " + round + " ------------------------- ");
+            for(Player player : players){
+                int roll = die.roll();
+                System.out.print(player.getName() + " rolled " + roll + ". The path to the next square: "
+                        + player.getCurrSquare() + " -> " + (player.getCurrSquare() + roll));
+                player.moveSquare(roll);
+                curSquare = board.Board_Squares[player.getCurrSquare() - 1];
+                while (curSquare.getLadderLength() + curSquare.getSnakeLength() != 0) {
+                    player.moveSquare(curSquare.getLadderLength() - curSquare.getSnakeLength());
+                    curSquare = board.Board_Squares[player.getCurrSquare() - 1];
+                    System.out.println(" -> " + player.getCurrSquare());
+                }
+                System.out.println("");
+                //game over stuff
+            }
         }
     }
 
