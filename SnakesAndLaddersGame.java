@@ -10,8 +10,7 @@ public class SnakesAndLaddersGame
     final int MAX_INPUT_LENGTH = 4;
 
     public SnakesAndLaddersGame(int min, int max){
-        Square s = new Square[BOARD_SIZE];
-        board = new GameBoard();
+        board = new GameBoard(BOARD_SIZE);
         this.die = new Die(max, min);
     }
 
@@ -138,17 +137,18 @@ public class SnakesAndLaddersGame
         Square curSquare;
         int round = 1;
         while(true){
-            System.out.println("------------------------- Round number " + round + " ------------------------- ");
-            for(Player player : players){
+            System.out.println("------------------------- Round number " + round++ + " ------------------------- ");
+            for(int i = 0; i < playersNum; i++){
                 int roll = die.roll();
-                System.out.print(player.getName() + " rolled " + roll + ". The path to the next square: "
-                        + player.getCurrSquare() + " -> " + (player.getCurrSquare() + roll));
-                player.moveSquare(roll);
-                curSquare = board.Board_Squares[player.getCurrSquare() - 1];
+                System.out.print(players[i].getName() + " rolled " + roll + ". The path to the next square: "
+                        + players[i].getCurrSquare() + " -> ");
+                players[i].moveSquare(roll);
+                System.out.println(players[i].getCurrSquare());
+                curSquare = board.boardSquares[players[i].getCurrSquare() - 1];
                 while (curSquare.getLadderLength() + curSquare.getSnakeLength() != 0) {
-                    player.moveSquare(curSquare.getLadderLength() - curSquare.getSnakeLength());
-                    curSquare = board.Board_Squares[player.getCurrSquare() - 1];
-                    System.out.println(" -> " + player.getCurrSquare());
+                    players[i].moveSquare(curSquare.getLadderLength() - curSquare.getSnakeLength());
+                    curSquare = board.boardSquares[players[i].getCurrSquare() - 1];
+                    System.out.println(" -> " + players[i].getCurrSquare());
                 }
                 System.out.println("");
                 //game over stuff

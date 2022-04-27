@@ -1,15 +1,18 @@
 public class GameBoard
 {
-    Square[] Board_Squares;
+    Square[] boardSquares;
 
     public GameBoard(int n)
     {
-        Square[] array = new Square[n];
+        this.boardSquares = new Square[n];
+        for(int i = 0; i < n; i++){
+            boardSquares[i] = new Square();
+        }
 
     }
 
     public Square [] getBoard(){
-        return this.Board_Squares;
+        return this.boardSquares;
     }
 
 }
