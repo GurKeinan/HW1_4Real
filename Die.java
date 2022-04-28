@@ -35,7 +35,7 @@ public class Die {
 
 
     public int roll() {
-        return Main.rnd.nextInt(max - min) + min;
+        return Main.rnd.nextInt(max - min + 1) + min;
     }
 
 }
