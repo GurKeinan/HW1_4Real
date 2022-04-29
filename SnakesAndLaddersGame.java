@@ -144,7 +144,7 @@ public class SnakesAndLaddersGame
         int round = 1;
         int winner = -1;
         while(winner == -1){
-            System.out.println("------------------------- Round number " + round++ + " ------------------------- ");
+            System.out.println("------------------------- Round number " + round++ + " -------------------------");
             for(int i = 0; i < playersNum && winner == -1; i++){
                 int roll = die.roll();
                 System.out.print(players[i].getName() + " rolled " + roll + ". The path to the next square: "
@@ -165,7 +165,7 @@ public class SnakesAndLaddersGame
                     winner = i;
                 }
             }
-
+            System.out.println("");
             System.out.println("Players positions on the board:");
             for(int i = 0; i < playersNum; i++) players[i].printPosition();
         }
