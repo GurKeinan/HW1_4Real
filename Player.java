@@ -43,6 +43,11 @@ public class Player
         if(currSquare > 100) currSquare = 200-currSquare;
     }
 
+    public void printPosition()
+    {
+        System.out.println(name+ " is in square number " + currSquare);
+    }
+
 
 
 

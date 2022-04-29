@@ -14,6 +14,14 @@ public class SnakesAndLaddersGame
         this.die = new Die(max, min);
     }
 
+    public SnakesAndLaddersGame(){
+        this.die = new Die();
+        board = new GameBoard(BOARD_SIZE);
+
+    }
+
+
+
     public void sortByName(Player [] p) {
         Player tmp;
         Player p2 [] = new Player[playersNum];
@@ -31,9 +39,7 @@ public class SnakesAndLaddersGame
     }
 
 
-    public SnakesAndLaddersGame(){
-        this.die = new Die();
-    }
+
 
     public void initializeGame() {
         int squareNum;
@@ -42,6 +48,7 @@ public class SnakesAndLaddersGame
         this.playersNum = 0;
         boolean sameName = false;
         boolean sameColor = false;
+        System.out.println("Initializing the game...");
         String [] input = new String[MAX_INPUT_LENGTH];
         while (true) {
             input = Main.scanner.nextLine().split(" ");
@@ -60,7 +67,7 @@ public class SnakesAndLaddersGame
                     continue;
                 }
                 for(int i = 0; i < playersNum; i++){
-                    if(input[2] == players[i].getName()){
+                    if(input[2].equals(players[i].getName())){
                         sameName = true;
                     }
                     if(input[3].equals(players[i].getColor().name())){
@@ -80,11 +87,10 @@ public class SnakesAndLaddersGame
                 }
                 else{
                     players[playersNum] = new Player(input[2], Colors.valueOf(input[3]), 1);
-                    players[playersNum].setColor(Colors.valueOf(input[3]));
                     this.playersNum++;
                 }
             }
-            else if(input[1] == "ladder"){
+            else if(input[1].equals("ladder")){
                 squareNum = Integer.parseInt(input[3]);
                 length = Integer.parseInt(input[2]);
                 if((squareNum >= 101) || (squareNum <= 0)){
@@ -94,23 +100,23 @@ public class SnakesAndLaddersGame
                 {
                     System.out.println("The ladder is too long!");
                 }
-                else if(board.getBoard()[squareNum].getLadderLength() != 0){
+                else if(board.getBoard()[squareNum-1].getLadderLength() != 0){
                     System.out.println("This square already contains a bottom of a ladder!");
                 }
-                else if(board.getBoard()[squareNum].getSnakeLength() != 0){
+                else if(board.getBoard()[squareNum-1].getSnakeLength() != 0){
                     System.out.println("This square contains a head of a snake!");
                 }
                 else {
-                    board.getBoard()[squareNum].setLadderLength(length);
+                    board.getBoard()[squareNum-1].setLadderLength(length);
                 }
             }
-            else if(input[1] == "snake"){
+            else if(input[1].equals("snake")){
                 squareNum = Integer.parseInt(input[3]);
                 length = Integer.parseInt(input[2]);
                 if((squareNum >= 101) || (squareNum <= 0)){
                     System.out.println("The square is not within the board's boundaries!");
                 }
-                if(squareNum == 100)
+                else if(squareNum == 100)
                 {
                     System.out.println("You cannot add a snake in the last square!");
                 }
@@ -118,14 +124,14 @@ public class SnakesAndLaddersGame
                 {
                     System.out.println("The snake is too long!");
                 }
-                else if(board.getBoard()[squareNum].getLadderLength() != 0){
+                else if(board.getBoard()[squareNum-1].getLadderLength() != 0){
                     System.out.println("This square contains a bottom of a ladder!");
                 }
-                else if(board.getBoard()[squareNum].getSnakeLength() != 0){
+                else if(board.getBoard()[squareNum-1].getSnakeLength() != 0){
                     System.out.println("This square already contains a head of a snake!");
                 }
                 else {
-                    board.getBoard()[squareNum].setSnakeLength(length);
+                    board.getBoard()[squareNum-1].setSnakeLength(length);
                 }
             }
 
@@ -136,24 +142,34 @@ public class SnakesAndLaddersGame
     public String start(){
         Square curSquare;
         int round = 1;
-        while(true){
+        int winner = -1;
+        while(winner == -1){
             System.out.println("------------------------- Round number " + round++ + " ------------------------- ");
-            for(int i = 0; i < playersNum; i++){
+            for(int i = 0; i < playersNum && winner == -1; i++){
                 int roll = die.roll();
                 System.out.print(players[i].getName() + " rolled " + roll + ". The path to the next square: "
                         + players[i].getCurrSquare() + " -> ");
                 players[i].moveSquare(roll);
-                System.out.println(players[i].getCurrSquare());
+                System.out.print(players[i].getCurrSquare());
                 curSquare = board.boardSquares[players[i].getCurrSquare() - 1];
                 while (curSquare.getLadderLength() + curSquare.getSnakeLength() != 0) {
                     players[i].moveSquare(curSquare.getLadderLength() - curSquare.getSnakeLength());
                     curSquare = board.boardSquares[players[i].getCurrSquare() - 1];
-                    System.out.println(" -> " + players[i].getCurrSquare());
+                    System.out.print(" -> " + players[i].getCurrSquare());
                 }
                 System.out.println("");
-                //game over stuff
+
+
+                if(players[i].getCurrSquare() == 100)
+                {
+                    winner = i;
+                }
             }
+
+            System.out.println("Players positions on the board:");
+            for(int i = 0; i < playersNum; i++) players[i].printPosition();
         }
+        return (players[winner].getName());
     }
 
 }
