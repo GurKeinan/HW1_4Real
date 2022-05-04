@@ -1,6 +1,6 @@
 public class GameBoard
 {
-    Square[] boardSquares;
+    private Square[] boardSquares;
 
     /**
      * constructor for a new game board - contains array of squares

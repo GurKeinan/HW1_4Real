@@ -1,8 +1,8 @@
 public class Player
 {
-    String name;
-    Colors color;
-    int currSquare;
+    private String name;
+    private Colors color;
+    private int currSquare;
 
     /**
      * constructor of a new player

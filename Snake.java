@@ -1,7 +1,7 @@
 
 public class Snake
 {
-    int length;//we characterized each snake by its length only.
+    private int length;//we characterized each snake by its length only.
 
     /**
      * snake constructor

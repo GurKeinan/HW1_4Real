@@ -1,6 +1,6 @@
 public class Ladder
 {
-    int length;//we characterized each ladder by its length only.
+    private int length;//we characterized each ladder by its length only.
     /**
      * ladder constructor
      * @param length- the length of the ladder

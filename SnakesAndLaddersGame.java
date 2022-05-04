@@ -1,12 +1,11 @@
 public class SnakesAndLaddersGame
 {
 
-    Die die;
-
-    int playersNum;
-    Player[] players;
+    private Die die;
+    private int playersNum;
+    private Player[] players;
+    private GameBoard board;
     final int BOARD_SIZE = 100;
-    GameBoard board;
     final int MAX_INPUT_LENGTH = 4;
 
     /**
@@ -171,12 +170,12 @@ public class SnakesAndLaddersGame
                         + players[i].getCurrSquare() + " -> ");
                 players[i].moveSquare(roll);
                 System.out.print(players[i].getCurrSquare());
-                curSquare = board.boardSquares[players[i].getCurrSquare() - 1];
+                curSquare = board.getBoard()[players[i].getCurrSquare() - 1];
                 while (curSquare.getLadderLength() + curSquare.getSnakeLength() != 0) {
                     //runs until there are no changes in the player square - he landed on a square which has 0 as the
                     //length of both the ladder and the snake
                     players[i].moveSquare(curSquare.getLadderLength() - curSquare.getSnakeLength());
-                    curSquare = board.boardSquares[players[i].getCurrSquare() - 1];
+                    curSquare = board.getBoard()[players[i].getCurrSquare() - 1];
                     System.out.print(" -> " + players[i].getCurrSquare());
                 }
                 System.out.println();
